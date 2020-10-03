@@ -24,14 +24,14 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET }}
         EC2_USER: ${{ secrets.USERNAME }}
         EC2_HOST: ${{ secrets.IP }}
-        SLACK_URL: ${{ secrets.SLACK_URL }}
       run: | 
         # 秘密鍵にファイル名secret_keyをつける。
         echo "${SECRET_KEY}" > ./secret_key
         # パーミッションの変更    
-        chmod 600 secret_key
+        chmod 600 ./secret_key
         # ssh接続　＞　デプロイするディレクトリに行く　＞　デプロイ
-        ssh -oStrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} -t -i secret_key "cd ~/ && git pull origin master && SLACK_URL=$(printf %q "${SLACK_URL}") bash"
+        ssh -oStrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} -i secret_key "cd ~/raspdep && git pull origin master"
+        #ssh -oStrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} -t -i secret_key "cd ~/ && git pull origin master && SLACK_URL=$(printf %q "${SLACK_URL}") bash"
         
         
         
