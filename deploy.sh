@@ -1,0 +1,1 @@
+rsync -acvz --delete ./src pi@131.147.172.28:/home/pi/program/
